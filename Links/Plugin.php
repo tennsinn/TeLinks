@@ -3,7 +3,7 @@
  * 链接管理插件
  *
  * @package Links
- * @version 0.1.0
+ * @version 0.1.1
  * @author 息E-敛
  * @link http://tennsinn.com
  **/
@@ -21,7 +21,7 @@ class Links_Plugin implements Typecho_Plugin_Interface
 			`lid` int unsigned NOT NULL auto_increment PRIMARY KEY,
 			`category` varchar(10) default 'external',
 			`title` varchar(20) NOT NULL,
-			`url` varchar(20) NOT NULL,
+			`url` varchar(200) NOT NULL,
 			`logo` varchar(200) default NULL,
 			`description` varchar(200) default NULL,
 			`created` int(10) default 0,
