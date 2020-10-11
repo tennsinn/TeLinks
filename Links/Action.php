@@ -72,6 +72,7 @@ class Links_Action extends Typecho_Widget implements Widget_Interface_Do
 			$category->value($link['category']);
 			$title->value($link['title']);
 			$url->value($link['url']);
+			$logo->value($link['logo']);
 			$description->value($link['description']);
 			$valid->value($link['valid']);
 			$submit->value(_t('编辑链接'));
@@ -93,6 +94,7 @@ class Links_Action extends Typecho_Widget implements Widget_Interface_Do
 			$title->addRule('xssCheck', _t('请不要站点标题中使用特殊字符'));
 			$url->addRule('required', _t('必须填写站点链接地址'));
 			$url->addRule('url', _t('请输入正确的链接地址'));
+			$logo->addRule('url', _t('请输入正确的链接地址'));
 		}
 		if ('update' == $action)
 		{

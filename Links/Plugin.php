@@ -3,7 +3,7 @@
  * 链接管理插件
  *
  * @package Links
- * @version 0.1.1
+ * @version 0.1.2
  * @author 息E-敛
  * @link http://tennsinn.com
  **/
