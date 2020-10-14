@@ -3,7 +3,7 @@
  * 链接管理插件
  *
  * @package Links
- * @version 0.1.2
+ * @version 0.1.3
  * @author 息E-敛
  * @link http://tennsinn.com
  **/
@@ -75,9 +75,10 @@ class Links_Plugin implements Typecho_Plugin_Interface
 	 * @access public
 	 * @param String $category 分类标签名
 	 * @param Bool $valid 链接有效性
+	 * @param String $orderby 排序字段
 	 * @return Array
 	 */
-	public static function getLinks($category=NULL, $valid=NULL)
+	public static function getLinks($category=NULL, $valid=NULL, $orderby=NULL)
 	{
 		$db = Typecho_Db::get();
 		$select = $db->select()->from('table.links');
@@ -85,6 +86,8 @@ class Links_Plugin implements Typecho_Plugin_Interface
 			$select->where('category = ?', $category);
 		if($valid)
 			$select->where('valid = ?', $valid);
+		if($orderby)
+			$select->order($orderby);
 		$rows = $db->fetchAll($select);
 		return $rows;
 	}

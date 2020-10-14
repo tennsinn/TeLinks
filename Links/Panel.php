@@ -22,7 +22,7 @@ include 'menu.php';
 					</div>
 				</div>
 				<ul class="typecho-list-notable tag-list clearfix">
-					<?php $links = Links_Plugin::getLinks(); ?>
+					<?php $links = Links_Plugin::getLinks(NULL,NULL,'category'); ?>
 					<?php if($links) : ?>
 					<?php foreach($links as $link) : ?>
 					<li id="<?=$link['lid']?>">
