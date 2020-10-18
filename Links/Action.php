@@ -20,6 +20,7 @@ class Links_Action extends Typecho_Widget implements Widget_Interface_Do
 		$this->on($this->request->is('do=insert'))->insertLink();
 		$this->on($this->request->is('do=update'))->updateLink();
 		$this->on($this->request->is('do=delete'))->deleteLink();
+		$this->on($this->request->is('do=click'))->clickLink();
 	}
 
 	/**
@@ -182,5 +183,27 @@ class Links_Action extends Typecho_Widget implements Widget_Interface_Do
 
 		/** 转向链接管理页 */
 		$this->response->redirect(Typecho_Common::url('extending.php?panel=Links%2FPanel.php', $this->_options->adminUrl));
+	}
+
+	/**
+	 * 点击链接
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function clickLink()
+	{
+		$lid = $this->request->filter('int')->get('lid');
+		$link = $this->_db->fetchRow($this->_db->select()->from('table.links')->where('lid = ?', $lid));
+		if($link)
+		{
+			$update = $this->_db->update('table.links')->where('lid = ?', $lid);
+			$update->expression('clicksNum', 'clicksNum + 1');
+			$update->expression('clicked', Typecho_Date::gmtTime());
+			$this->_db->query($update);
+			$this->response->redirect($link['url']);
+		}
+		else
+			$this->response->goBack();
 	}
 }

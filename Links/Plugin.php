@@ -3,7 +3,7 @@
  * 链接管理插件
  *
  * @package Links
- * @version 0.1.3
+ * @version 0.2.0
  * @author 息E-敛
  * @link http://tennsinn.com
  **/
@@ -26,7 +26,9 @@ class Links_Plugin implements Typecho_Plugin_Interface
 			`description` varchar(200) default NULL,
 			`created` int(10) default 0,
 			`modified` int(10) default 0,
-			`valid` tinyint(1) default 1
+			`valid` tinyint(1) default 1,
+			`clicksNum` int(10) default 0,
+			`clicked` int(10) default 0
 			) ENGINE=MyISAM DEFAULT CHARSET=". $charset;
 		$db->query($query);
 	}
