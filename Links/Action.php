@@ -1,11 +1,17 @@
 <?php
+if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
 class Links_Action extends Typecho_Widget implements Widget_Interface_Do
 {
+	private $_options;
+	private $_security;
+	private $_db;
+
 	public function __construct($request, $response, $params = NULL)
 	{
 		parent::__construct($request, $response, $params);
 		$this->_options = Helper::options();
+		$this->_security = Helper::security();
 		$this->_db = Typecho_Db::get();
 	}
 
@@ -17,10 +23,12 @@ class Links_Action extends Typecho_Widget implements Widget_Interface_Do
 	 */
 	public function action()
 	{
+		$this->on($this->request->is('do=click'))->clickLink();
+		$this->_security->protect();
+		Typecho_Widget::widget('Widget_User')->pass('administrator');
 		$this->on($this->request->is('do=insert'))->insertLink();
 		$this->on($this->request->is('do=update'))->updateLink();
 		$this->on($this->request->is('do=delete'))->deleteLink();
-		$this->on($this->request->is('do=click'))->clickLink();
 	}
 
 	/**
@@ -32,7 +40,7 @@ class Links_Action extends Typecho_Widget implements Widget_Interface_Do
 	 */
 	public function form($action=NULL)
 	{
-		$form = new Typecho_Widget_Helper_Form(Typecho_Common::url('/action/links', $this->_options->index), Typecho_Widget_Helper_Form::POST_METHOD);
+		$form = new Typecho_Widget_Helper_Form($this->_security->getIndex('/action/links'), Typecho_Widget_Helper_Form::POST_METHOD);
 
 		$do = new Typecho_Widget_Helper_Form_Element_Hidden('do');
 		$form->addInput($do);

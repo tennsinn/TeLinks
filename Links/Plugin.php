@@ -1,9 +1,11 @@
 <?php
+if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
 /**
  * 链接管理插件
  *
  * @package Links
- * @version 0.2.1
+ * @version 0.2.2
  * @author 息E-敛
  * @link http://tennsinn.com
  **/
