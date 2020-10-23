@@ -212,6 +212,6 @@ class Links_Action extends Typecho_Widget implements Widget_Interface_Do
 			$this->response->redirect($link['url']);
 		}
 		else
-			$this->response->goBack();
+			throw new Typecho_Router_Exception(_t('链接地址不存在'), 404);
 	}
 }

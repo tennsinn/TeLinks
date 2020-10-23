@@ -5,7 +5,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * 链接管理插件
  *
  * @package Links
- * @version 0.2.2
+ * @version 0.2.3
  * @author 息E-敛
  * @link http://tennsinn.com
  **/
@@ -17,6 +17,7 @@ class Links_Plugin implements Typecho_Plugin_Interface
 	{
 		Helper::addAction('links', 'Links_Action');
 		Helper::addPanel(3, "Links/Panel.php", _t("Links"), _t("Links"), 'administrator');
+		Helper::addRoute('link', '/link/[lid:digital]', 'Links_Action', 'clickLink');
 		Links_Plugin::_checkVersion();
 		$db = Typecho_Db::get();
 		$charset = Helper::options()->charset == 'UTF-8' ? 'utf8' : 'gbk';
@@ -39,8 +40,9 @@ class Links_Plugin implements Typecho_Plugin_Interface
 	/** 禁用插件方法 */
 	public static function deactivate()
 	{
-		Helper::removeAction('links');
+		Helper::removeRoute('link');
 		Helper::removePanel(3, 'Links/Panel.php');
+		Helper::removeAction('links');
 		if (Helper::options()->plugin('Links')->drop)
 		{
 			$db = Typecho_Db::get();
